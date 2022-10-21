@@ -1,19 +1,7 @@
-from enum import unique
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-db = SQLAlchemy()
-
-class News(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String, nullable=False) #nullable=False - данное значение обязательно должно быть
-    url = db.Column(db.String, unique=True, nullable=False) #unique - уникальность
-    published = db.Column(db.DateTime, nullable=False)
-    text = db.Column(db.Text, nullable=True) #nullable=True - данное значение НЕ обязательно должно быть
-
-    def __repr__(self) -> str:
-        return f'News {self.title}, {self.url}'
+from webapp.db import db
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
